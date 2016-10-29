@@ -18,8 +18,8 @@ const int LED5 = 8;
 const int button1 = 12; //Buttons
 const int button2 = 13;
 const int pauseButton = 10;
-const int useSavedValuesButton = 1;
-const int saveButton = 2;
+const int useSavedValuesButton = 0;
+const int saveButton = 1;
  
 int button1Presses = 0; //Button values
 int saveButtonPresses = 0;
@@ -140,6 +140,7 @@ void loop() {
     EEPROM.write(12, servo3PosSaves[2]);
     EEPROM.write(13, servo3PosSaves[3]);
     EEPROM.write(14, servo3PosSaves[4]);
+    Serial.println("EEPROM saved");
   }
 
   if(saveButtonPresses == 2){
@@ -147,6 +148,7 @@ void loop() {
       EEPROM.write(i, 0);
     }
     saveButtonPresses = 0;
+    Serial.println("EEPROM cleared");
   }
 
   if(digitalRead(useSavedValuesButton)){
@@ -171,6 +173,7 @@ void loop() {
     
     runValues = true;  
     allPositionsSaved = true;
+    Serial.println("EEPROM values used");
   }
  
   if(digitalRead(button2) == HIGH){ // Pretty self-explnatory here
