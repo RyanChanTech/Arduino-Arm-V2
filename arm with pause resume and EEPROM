@@ -1,6 +1,7 @@
 int timeDelays[] = {0,0,0,0,0}; //Input delays here (in milliseconds) for manual input
  
 #include <Servo.h>
+#include <EEPROM.h>
  
 Servo servo1; //Servos
 Servo servo2;
