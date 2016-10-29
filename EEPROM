@@ -55,6 +55,8 @@ void setup() {
   pinMode(button1, INPUT);
   pinMode(button2, INPUT);
   pinMode(pauseButton, INPUT);
+  pinMode(saveButton, INPUT);
+  pinMode(useSavedValuesButton, INPUT);
  
   Serial.begin(9600);
 }
