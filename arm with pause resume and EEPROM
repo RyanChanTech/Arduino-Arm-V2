@@ -127,7 +127,7 @@ void loop() {
     }
   }
 
-  if(digitalRead(saveButton)){
+  if(digitalRead(saveButton) == HIGH){
     saveButtonPresses++;
     delay(500);
   }
@@ -162,7 +162,7 @@ void loop() {
     Serial.println("EEPROM cleared");
   }
 
-  if(digitalRead(useSavedValuesButton)){
+  if(digitalRead(useSavedValuesButton) == HIGH){
     //servo1PosSaves
     servo1PosSaves[0] = EEPROM.read(0);
     servo1PosSaves[1] = EEPROM.read(1);
