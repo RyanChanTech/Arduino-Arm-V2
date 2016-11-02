@@ -21,6 +21,7 @@ const int useSavedValuesButton = 0;
 const int saveButton = 1;
  
 int button1Presses = 0; //Button values
+int saveButtonPresses = 0;
  
 boolean runValues = false;
 boolean allPositionsSaved = false;
