@@ -18,11 +18,12 @@ const int LED5 = 8;
 const int button1 = 12; //Buttons
 const int button2 = 13;
 const int pauseButton = 10;
-const int useSavedValuesButton = 0;
+const int loadValuesButton = 0;
 const int saveButton = 1;
  
 int button1Presses = 0; //Button values
 int saveButtonPresses = 0;
+int loadButtonPresses = 0;
  
 boolean runValues = false;
 boolean allPositionsSaved = false;
@@ -56,7 +57,7 @@ void setup() {
   pinMode(button2, INPUT);
   pinMode(pauseButton, INPUT);
   pinMode(saveButton, INPUT);
-  pinMode(useSavedValuesButton, INPUT);
+  pinMode(loadValuesButton, INPUT);
  
   Serial.begin(9600);
 }
@@ -123,59 +124,143 @@ void loop() {
     delay(500);
   }
 
-  if(saveButtonPresses == 1){
-    //servo1PosSaves
-    EEPROM.write(0, servo1PosSaves[0]);
-    EEPROM.write(1, servo1PosSaves[1]);
-    EEPROM.write(2, servo1PosSaves[2]);
-    EEPROM.write(3, servo1PosSaves[3]);
-    EEPROM.write(4, servo1PosSaves[4]);
-    //servo2PosSaves
-    EEPROM.write(5, servo2PosSaves[0]);
-    EEPROM.write(6, servo2PosSaves[1]);
-    EEPROM.write(7, servo2PosSaves[2]);
-    EEPROM.write(8, servo2PosSaves[3]);
-    EEPROM.write(9, servo2PosSaves[4]);
-    //servo3PosSaves
-    EEPROM.write(10, servo3PosSaves[0]);
-    EEPROM.write(11, servo3PosSaves[1]);
-    EEPROM.write(12, servo3PosSaves[2]);
-    EEPROM.write(13, servo3PosSaves[3]);
-    EEPROM.write(14, servo3PosSaves[4]);
-    Serial.println("EEPROM saved");
+  switch(saveButtonPresses){
+    case 1:
+      //servo1PosSaves
+      EEPROM.write(0, servo1PosSaves[0]);
+      EEPROM.write(1, servo1PosSaves[1]);
+      EEPROM.write(2, servo1PosSaves[2]);
+      EEPROM.write(3, servo1PosSaves[3]);
+      EEPROM.write(4, servo1PosSaves[4]);
+      //servo2PosSaves
+      EEPROM.write(5, servo2PosSaves[0]);
+      EEPROM.write(6, servo2PosSaves[1]);
+      EEPROM.write(7, servo2PosSaves[2]);
+      EEPROM.write(8, servo2PosSaves[3]);
+      EEPROM.write(9, servo2PosSaves[4]);
+      //servo3PosSaves
+      EEPROM.write(10, servo3PosSaves[0]);
+      EEPROM.write(11, servo3PosSaves[1]);
+      EEPROM.write(12, servo3PosSaves[2]);
+      EEPROM.write(13, servo3PosSaves[3]);
+      EEPROM.write(14, servo3PosSaves[4]);
+      Serial.println("EEPROM 1 saved");
+      break;
+    case 2: 
+      EEPROM.write(15, servo1PosSaves[0]);
+      EEPROM.write(16, servo1PosSaves[1]);
+      EEPROM.write(17, servo1PosSaves[2]);
+      EEPROM.write(18, servo1PosSaves[3]);
+      EEPROM.write(19, servo1PosSaves[4]);
+      //servo2PosSaves
+      EEPROM.write(20, servo2PosSaves[0]);
+      EEPROM.write(21, servo2PosSaves[1]);
+      EEPROM.write(22, servo2PosSaves[2]);
+      EEPROM.write(23, servo2PosSaves[3]);
+      EEPROM.write(24, servo2PosSaves[4]);
+      //servo3PosSaves
+      EEPROM.write(25, servo3PosSaves[0]);
+      EEPROM.write(26, servo3PosSaves[1]);
+      EEPROM.write(27, servo3PosSaves[2]);
+      EEPROM.write(28, servo3PosSaves[3]);
+      EEPROM.write(29, servo3PosSaves[4]);
+      Serial.println("EEPROM 2 saved");
+      break;
+    case 3: 
+      EEPROM.write(30, servo1PosSaves[0]);
+      EEPROM.write(31, servo1PosSaves[1]);
+      EEPROM.write(32, servo1PosSaves[2]);
+      EEPROM.write(33, servo1PosSaves[3]);
+      EEPROM.write(34, servo1PosSaves[4]);
+      //servo2PosSaves
+      EEPROM.write(35, servo2PosSaves[0]);
+      EEPROM.write(36, servo2PosSaves[1]);
+      EEPROM.write(37, servo2PosSaves[2]);
+      EEPROM.write(38, servo2PosSaves[3]);
+      EEPROM.write(39, servo2PosSaves[4]);
+      //servo3PosSaves
+      EEPROM.write(40, servo3PosSaves[0]);
+      EEPROM.write(41, servo3PosSaves[1]);
+      EEPROM.write(42, servo3PosSaves[2]);
+      EEPROM.write(43, servo3PosSaves[3]);
+      EEPROM.write(44, servo3PosSaves[4]);
+      Serial.println("EEPROM 3 saved");
+      break;
+    case 4:
+      for (int i = 0 ; i < 45 ; i++) {
+        EEPROM.write(i, 0);
+      }
+      saveButtonPresses = 0;
+      Serial.println("EEPROM cleared");
+      break;
   }
 
-  if(saveButtonPresses == 2){
-    for (int i = 0 ; i < 15 ; i++) {
-      EEPROM.write(i, 0);
-    }
-    saveButtonPresses = 0;
-    Serial.println("EEPROM cleared");
+  if(digitalRead(loadValuesButton) == HIGH){
+    loadButtonPresses++;
   }
 
-  if(digitalRead(useSavedValuesButton) == HIGH){
-    //servo1PosSaves
-    servo1PosSaves[0] = EEPROM.read(0);
-    servo1PosSaves[1] = EEPROM.read(1);
-    servo1PosSaves[2] = EEPROM.read(2);
-    servo1PosSaves[3] = EEPROM.read(3);
-    servo1PosSaves[4] = EEPROM.read(4);
-    //servo2PosSaves
-    servo2PosSaves[0] = EEPROM.read(5);
-    servo2PosSaves[1] = EEPROM.read(6);
-    servo2PosSaves[2] = EEPROM.read(7);
-    servo2PosSaves[3] = EEPROM.read(8);
-    servo2PosSaves[4] = EEPROM.read(9);
-    //Servo3PosSaves
-    servo3PosSaves[0] = EEPROM.read(10);
-    servo3PosSaves[1] = EEPROM.read(11);
-    servo3PosSaves[2] = EEPROM.read(12);
-    servo3PosSaves[3] = EEPROM.read(13);
-    servo3PosSaves[4] = EEPROM.read(14);
-    
-    runValues = true;  
-    allPositionsSaved = true;
-    Serial.println("EEPROM values used");
+  switch(loadButtonPresses){
+    case 1:
+      //servo1PosSaves
+      servo1PosSaves[0] = EEPROM.read(0);
+      servo1PosSaves[1] = EEPROM.read(1);
+      servo1PosSaves[2] = EEPROM.read(2);
+      servo1PosSaves[3] = EEPROM.read(3);
+      servo1PosSaves[4] = EEPROM.read(4);
+      //servo2PosSaves
+      servo2PosSaves[0] = EEPROM.read(5);
+      servo2PosSaves[1] = EEPROM.read(6);
+      servo2PosSaves[2] = EEPROM.read(7);
+      servo2PosSaves[3] = EEPROM.read(8);
+      servo2PosSaves[4] = EEPROM.read(9);
+      //Servo3PosSaves
+      servo3PosSaves[0] = EEPROM.read(10);
+      servo3PosSaves[1] = EEPROM.read(11);
+      servo3PosSaves[2] = EEPROM.read(12);
+      servo3PosSaves[3] = EEPROM.read(13);
+      servo3PosSaves[4] = EEPROM.read(14);
+      Serial.println("EEPROM save 1 loaded");
+      break;
+    case 2:
+      servo1PosSaves[0] = EEPROM.read(15);
+      servo1PosSaves[1] = EEPROM.read(16);
+      servo1PosSaves[2] = EEPROM.read(17);
+      servo1PosSaves[3] = EEPROM.read(18);
+      servo1PosSaves[4] = EEPROM.read(19);
+      //servo2PosSaves
+      servo2PosSaves[0] = EEPROM.read(20);
+      servo2PosSaves[1] = EEPROM.read(21);
+      servo2PosSaves[2] = EEPROM.read(22);
+      servo2PosSaves[3] = EEPROM.read(23);
+      servo2PosSaves[4] = EEPROM.read(24);
+      //Servo3PosSaves
+      servo3PosSaves[0] = EEPROM.read(25);
+      servo3PosSaves[1] = EEPROM.read(26);
+      servo3PosSaves[2] = EEPROM.read(27);
+      servo3PosSaves[3] = EEPROM.read(28);
+      servo3PosSaves[4] = EEPROM.read(29);
+      Serial.println("EEPROM save 2 loaded");
+      break;
+    case 3:
+      servo1PosSaves[0] = EEPROM.read(30);
+      servo1PosSaves[1] = EEPROM.read(31);
+      servo1PosSaves[2] = EEPROM.read(32);
+      servo1PosSaves[3] = EEPROM.read(33);
+      servo1PosSaves[4] = EEPROM.read(34);
+      //servo2PosSaves
+      servo2PosSaves[0] = EEPROM.read(35);
+      servo2PosSaves[1] = EEPROM.read(36);
+      servo2PosSaves[2] = EEPROM.read(37);
+      servo2PosSaves[3] = EEPROM.read(38);
+      servo2PosSaves[4] = EEPROM.read(39);
+      //Servo3PosSaves
+      servo3PosSaves[0] = EEPROM.read(40);
+      servo3PosSaves[1] = EEPROM.read(41);
+      servo3PosSaves[2] = EEPROM.read(42);
+      servo3PosSaves[3] = EEPROM.read(43);
+      servo3PosSaves[4] = EEPROM.read(44);
+      Serial.println("EEPROM save 3 loaded");
+      break;
   }
  
   if(digitalRead(button2) == HIGH){ // Pretty self-explnatory here
