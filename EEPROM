@@ -121,7 +121,7 @@ void loop() {
 
   if(digitalRead(saveButton) == HIGH){
     saveButtonPresses++;
-    delay(500);
+    delay(750);
   }
 
   switch(saveButtonPresses){
@@ -197,6 +197,7 @@ void loop() {
 
   if(digitalRead(loadValuesButton) == HIGH){
     loadButtonPresses++;
+    delay(750);
   }
 
   switch(loadButtonPresses){
@@ -260,6 +261,9 @@ void loop() {
       servo3PosSaves[3] = EEPROM.read(43);
       servo3PosSaves[4] = EEPROM.read(44);
       Serial.println("EEPROM save 3 loaded");
+      break;
+    case 4:
+      loadButtonPresses = 0;
       break;
   }
  
