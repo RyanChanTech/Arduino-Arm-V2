@@ -64,7 +64,7 @@ void loop() {
   servo2.write(pot2Angle);
   servo3.write(pot3Angle);
   
-  if(digitalRead(button1) == HIGH){ // This will check how many times button1 is pressed and save the positions to an array depending on how many times it is pressed
+  if(digitalRead(button1) == HIGH && button1Presses <= (sizeof(servo1PosSaves) / sizeof(servo1PosSaves[0]))){ // This will check how many times button1 is pressed and save the positions to an array depending on how many times it is pressed
     button1Presses++;
     servo1PosSaves[button1Presses--] = pot1Angle;
     servo2PosSaves[button1Presses--] = pot2Angle;
